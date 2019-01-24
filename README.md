@@ -1,40 +1,27 @@
-# Picking From Airport
+# AWS Batch ML Service
 
 ## Project Idea:
-To determine when one should leave home to go pick up family and friends from the airport. 
+(Consulting Project)
+Make it easy for data scientists to put ML models into production such that the model can scale.  
 
 ## Tech Stack
 - S3
-- Airflow: scheduler 
-- Spark: data processing
-- (TBA): database
-- Flask: dashboard
+- Lambda
+- AWS Batch
+- Redshift
 
 ## Data Source
-Data Needed:
-- Flight Arrival Times
-- Airpot Satistics (such as size and terminals)
-- Traffic data
-
-Bureau of Transportation: https://www.bts.gov/topics/airlines-and-airports-0
-- csv files 
-- size: ~10 GB
-
-Using some Maps Api to determine time of travel to airport.
+Provided by company. 
 
 ## Engineering Challenge
-1. Combining data sets
-2. Maintaining and updating airlines data 
-3. Stimulating as real-time streaming 
-4. Processing user requests 
+1. Scaling the model
+2. Handeling simultaneous or overlapping calls to the model
 
 ## Business Value
 This platform will tell you when to leave for the airport to pick-up your party, so that you are not cirling the airport waiting for them to walk-out.
 
 ## MVP
-Store data in S3. 
-Given any flight info and current location of user, determine when to leave for the airport. (Does not take into account any temporal factors)
+Automate the process of running the ML model. (Once data in S3, trigger the model and save the predictions)
 
 ## Stretch Goals
-Create notifications telling user that it is time to leave for the airport. 
-Using the similar idea, determine when to get drop-off people at the airport, by taking into account time to checkin bags and got through security check. 
+Store multiple models in DB. 
