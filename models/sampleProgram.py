@@ -1,13 +1,16 @@
 import time
 import sys
 
-sleepTime = 5
+sleepTime = 0
 print("Sleeping for", sleepTime, "seconds.")
 time.sleep(sleepTime)
 print("Slept for", sleepTime, "seconds.")
 input_arg = ['NONE']
 try:
-    input_arg = [sys.argv[1]]
+    if("/" in sys.argv[1]):
+        arg = sys.argv[1].split("/")
+        file = arg[-1]
+    input_arg = [file]
     print ("Argument:", input_arg)
 except Exception as e:
     print ("Exception:", e, end=" -- ")
@@ -35,5 +38,4 @@ import boto3
 s3_client = boto3.client('s3')
 bucket = 'batch-output'
 s3_client.upload_file(filename, bucket, filename)
-
-
+print ("Output saved to s3.")
