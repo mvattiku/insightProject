@@ -1,7 +1,8 @@
 import time
 import sys
+import random
 
-sleepTime = 0
+sleepTime = random.randint(5, 30)
 print("Sleeping for", sleepTime, "seconds.")
 time.sleep(sleepTime)
 print("Slept for", sleepTime, "seconds.")
@@ -11,7 +12,7 @@ try:
         arg = sys.argv[1].split("/")
         file = arg[-1]
     input_arg = [file]
-    print ("Argument:", input_arg)
+    print ("Argument:", sys.argv[1], " - File:", input_arg)
 except Exception as e:
     print ("Exception:", e, end=" -- ")
     print ("No arguments provided")
