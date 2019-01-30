@@ -30,4 +30,10 @@ filename = input_arg[0]+'_output_file.csv'
 output_df.to_csv(filename, index=False)
 print ("Wrote to file --", filename) 
 
+#save csv to S3
+import boto3
+s3_client = boto3.client('s3')
+bucket = 'batch-output'
+s3_client.upload_file(filename, bucket, filename)
+
 
