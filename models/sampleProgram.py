@@ -11,6 +11,8 @@ try:
     if("/" in sys.argv[1]):
         arg = sys.argv[1].split("/")
         file = arg[-1]
+    else:
+        file = sys.argv[1]
     input_arg = [file]
     print ("Argument:", sys.argv[1], " - File:", input_arg)
 except Exception as e:
