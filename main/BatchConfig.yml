@@ -1,0 +1,46 @@
+client:
+  region : 'us-west-2' 
+
+#Computer Enviornment Parameters
+comp_env:
+  computer_enviornment_name : &comp_env_name code-test  
+  security_group_ids : #EC2 security groups for instances launched
+    - sg-
+  subnets : #VPC subnets where comp resources are launched; subnets must be within same VPC
+    - subnet-
+    - subnet-
+    - subnet-
+  service_role : AWSBatchServiceRole  #IAM role that allows AWS Batch to make calls to other AWS services
+  instance_role: ecsInstanceRole  #ECS instance profile to attach to Amazon EC2 instances
+  max_vcpus : 128 #max num of EC2 vCPUs that an environment can reach
+
+#Job Queue
+job_queue:
+  job_queue_name : &job_queue_name code-test
+  job_queue_priority : 100  #queues with a higher priority (or a higher integer value) are evaluated first
+  computer_enviornment_name: *comp_env_name #compute environment to map to the job queue 
+
+#Job Definition
+job_def:
+  job_definition_name : &job_def_name "code"
+  image : "busybox" #docker image to run
+  command : "python sampleProgram.py Ref::infile"  #COMMAND parameter to docker run
+  memory : &memory 256  #hard limit (in MiB) of memory to present to the container
+  vcpus : &vcpus 1  #number of vCPUs reserved for the container
+  job_definition_param : {infile : sourceKey} #can use parameter substitution placeholders in the command field
+  job_definition_enviornment_variables : &job_def_env_var []  #enviornment variables
+  computer_enviornment_name: *comp_env_name
+
+#Job
+job:
+  job_name : "test-1"
+  job_definition_name_version : 'param-csv-s3:1'  #map the job defintion to the job
+  job_param :  #parameter substitution default values and placeholders for the command value
+    infile : sourceKey 
+  job_command : "python sampleProgram.py Ref::infile" #command to run the container
+  job_vcpus : *vcpus  #can override job definiton vcpus
+  job_memory : *memory  #can overrride job definition memory
+  retry_attempts : 1  #max job attemps if job fails
+  job_enviornment_variables : *job_def_env_var #enviornment variables
+  job_definition_name : *job_def_name
+  job_queue_name: *job_queue_name
