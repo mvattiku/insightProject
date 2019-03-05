@@ -27,7 +27,7 @@ This service helps data scientist dockerize their models. The purpose of dockeri
         - ```push_to_ecr```: *true* or *false* value to indicate if you want the image to be pushed into AWS ECR
         - ```repository```: (optinal if *push_to_ecr* = false) name of the repository to upload the image to in aws 
         - ```version```: (optinal if *push_to_ecr* = false) which version to save the image as on ECR (*this version does not have to match the image version in your local docker registry)
-        - ```aws_config_file```: (optinal if 'push_to_ecr' = false) .ini file with aws authetication information such as *region*, *aws_access_key_id*, *aws_secret_access_key*, and *aws_id*
+        - ```aws_config_file```: (optinal if *push_to_ecr* = false) .ini file with aws authetication information such as *region*, *aws_access_key_id*, *aws_secret_access_key*, and *aws_id*
     - Output:
         - Image uploaded onto AWS ECR 
 4. **Create Job Definition in AWS Batch:** Creates a job definition with the uploaded image so that batch jobs can be set up using this docker image. 
